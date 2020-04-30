@@ -42,22 +42,6 @@ steps:
   - cp dist/filestash filestash/
   - chmod -R o+r+w+x ./dist/data
 
-- name: release_docker
-  image: plugins/docker
-  depends_on: [ release_publish ]
-  when:
-    branch: master
-  settings:
-    dockerfile: ./docker/Dockerfile
-    repo: nepmia/designaui
-    username:
-      from_secret: DOCKER_USERNAME
-    password:
-      from_secret: DOCKER_PASSWORD
-    tags:
-    - latest
-    - "${DRONE_COMMIT_SHA:0:7}"
-
 - name: release_deploy
   image: appleboy/drone-ssh
   depends_on: [ release_publish ]
