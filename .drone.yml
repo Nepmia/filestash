@@ -72,7 +72,8 @@ steps:
       from_secret: SSH_PASSWORD
     port: 22
     script:
-    - cd /app/filestash/
+    - mkdir /app/
+    - mkdir /app/filestash/ && cd $_
     - docker-compose pull
     - docker-compose up -d --force-recreate --build
     - docker image prune -f
